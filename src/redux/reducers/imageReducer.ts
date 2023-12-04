@@ -6,6 +6,7 @@ import {ImageState} from '../../types';
 const initialState: ImageState = {
   selectedImage: '',
   selectedStyle: '',
+  newImageUrl: ''
 };
 
 const imageSlice = createSlice({
@@ -18,6 +19,9 @@ const imageSlice = createSlice({
     setSelectedStyle(state, action: PayloadAction<string>) {
       state.selectedStyle = action.payload;
     },
+    setNewImage(state, action: PayloadAction<string>) {
+      state.selectedImage = action.payload;
+    }
   },
 });
 

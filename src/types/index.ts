@@ -16,11 +16,13 @@ export interface StepAction {
 export interface ImageState {
   selectedImage: string;
   selectedStyle: string;
+  newImageUrl: string;
 }
 
 export enum ImageActionTypes {
   SET_SELECTED_IMAGE = 'SET_SELECTED_IMAGE',
   SET_SELECTED_STYLE = 'SET_SELECTED_STYLE',
+  SET_NEW_IMAGE = 'SET_NEW_IMAGE'
 }
 
 interface SetSelectedImageAction {
@@ -33,4 +35,9 @@ interface SetSelectedStyleAction {
   payload: string;
 }
 
-export type ImageAction = SetSelectedImageAction | SetSelectedStyleAction;
+interface SetNewImageAction {
+  type: ImageActionTypes.SET_NEW_IMAGE;
+  payload: string;
+}
+
+export type ImageAction = SetSelectedImageAction | SetSelectedStyleAction | SetNewImageAction;

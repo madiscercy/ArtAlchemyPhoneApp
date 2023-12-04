@@ -5,6 +5,8 @@ import {View, Text, TouchableOpacity, StyleSheet, Image, BackHandler} from 'reac
 import {launchImageLibrary, MediaType} from 'react-native-image-picker';
 import {useDispatch} from 'react-redux';
 import {setSelectedImage} from '../redux/actions/imageActions';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/NavigationTypes';
 
 type ImageState = null | {uri: string};
 
@@ -17,6 +19,9 @@ const SelectImageScreen = () => {
     
         return () => backHandler.remove();
       }, []);
+    
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
     
   const [selectedImage, setSelectedImageLocal] = useState<ImageState>(null);
   const dispatch = useDispatch();
@@ -45,7 +50,7 @@ const SelectImageScreen = () => {
   };
 
   const nextClick = () => {
-    // Navigate to the next screen or update the step
+    navigation.navigate('SelectStyle');
   };
 
   return (

@@ -19,6 +19,9 @@ import store from './src/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SelectImageScreen from './src/screens/SelectImageScreen';
+import SelectStyleScreen from './src/screens/SelectStyleScreen';
+import AlchemizeScreen from './src/screens/AlchemizeScreen';
+import ResultScreen from './src/screens/ResultScreen';
 import { RootStackParamList } from './src/navigation/NavigationTypes';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,6 +35,9 @@ const Root = () => {
         }}>
         <Stack.Screen name="Begin" component={BeginScreen} />
         <Stack.Screen name="SelectImage" component={SelectImageScreen} />
+        <Stack.Screen name="SelectStyle" component={SelectStyleScreen} />
+        <Stack.Screen name="Alchemize" component={AlchemizeScreen} />
+        <Stack.Screen name="Result" component={ResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
