@@ -5,11 +5,16 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setStep } from '../redux/actions/stepActions';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/NavigationTypes';
 
 const BeginScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const dispatch = useDispatch();
 
   const beginClick = () => {
+    navigation.navigate('SelectImage');
     dispatch(setStep(2));
   };
 
@@ -34,6 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#2C303B',
   },
   welcomeText: {
     alignItems: 'center',
