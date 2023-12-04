@@ -22,7 +22,7 @@ let imageSlice = createSlice({
       state.selectedStyle = action.payload;
     },
     setNewImage(state, action: PayloadAction<string>) {
-      state.selectedImage = action.payload;
+      state.newImageUrl = action.payload;
     },
   },
 });

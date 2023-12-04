@@ -7,6 +7,9 @@ import { RootState } from '../redux/store'; // Update the path as needed
 import { processImage } from '../services/imageProcessingService'; // Update the path and function as needed
 import { RootStackParamList } from '../navigation/NavigationTypes';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import RNFS from 'react-native-fs';
+import { setNewImage } from '../redux/actions/imageActions';
+
 
 const AlchemizeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -17,6 +20,7 @@ const AlchemizeScreen = () => {
   console.log('selectedStyle: ' + selectedStyle);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Assuming you have a function to retrieve the image when the component mounts
@@ -27,39 +31,33 @@ const AlchemizeScreen = () => {
     // Implement logic to retrieve the image
   };
 
-  const alchemize = () => {
+  const alchemize = async () => {
     if (selectedImage && selectedStyle && !isLoading) {
       setIsLoading(true);
       setIsError(false);
   
-      let imageData = selectedImage.toString();
-      console.log(imageData)
-      const base64Prefix = 'base64,';
-      const base64StartIndex =
-        imageData.indexOf(base64Prefix) + base64Prefix.length;
-      if (base64StartIndex > base64Prefix.length - 1) {
-        imageData = imageData.substring(base64StartIndex);
-      }
-
+      try {
+        // Convert image file to base64
+        const base64String = await RNFS.readFile(selectedImage, 'base64');
   
-      processImage(imageData, selectedStyle)
+        // Now, you can send this base64String to your image processing service
+        const response = await processImage(base64String, selectedStyle);
   
-        .then(response => {
-          setIsLoading(false);
-          if (response && response.newImage) {
-            // Handle the response, perhaps update the Redux store
-            console.log('newImage: ' + response.newImage);
-            navigation.navigate('Result');
-          } else {
-            setIsError(true);
-            console.error('newImage property not found in the response');
-          }
-        })
-        .catch(error => {
-          console.error('Error processing image:', error);
-          setIsLoading(false);
+        if (response && response.newImage) {
+          // Handle the response
+         
+          dispatch(setNewImage(response.newImage))
+          navigation.navigate('Result');
+        } else {
           setIsError(true);
-        });
+          console.error('newImage property not found in the response');
+        }
+      } catch (error) {
+        console.error('Error processing image:', error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
