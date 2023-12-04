@@ -26,6 +26,16 @@ import { RootStackParamList } from './src/navigation/NavigationTypes';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+// const persistConfig = {
+//   key: 'root',
+//   storage: AsyncStorage,
+// };
+
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// const store = createStore(persistedReducer);
+// const persistor = persistStore(store);
+
 const Root = () => {
   return (
     <Provider store={store}>

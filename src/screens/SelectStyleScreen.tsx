@@ -25,6 +25,7 @@ const SelectStyleScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const selectedImage = useSelector((state: RootState) => state.image.selectedImage);
+  console.log(selectedImage)
   const [selectedStyle, setSelectedStyleLocal] = useState<string | null>(null);
   const dispatch = useDispatch();
 
@@ -52,7 +53,7 @@ const SelectStyleScreen = () => {
       <View style={styles.styleButtons}>
         {artStyles.map((style, index) => (
           <TouchableOpacity key={index} onPress={() => selectStyle(style)} style={styles.button}>
-            <Text>{style}</Text>
+            <Text style={styles.buttonText}>{style}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -60,7 +61,7 @@ const SelectStyleScreen = () => {
       {selectedStyle && (
         <View style={styles.nextButton}>
           <TouchableOpacity onPress={goToNextStep}>
-            <Text>Go to Next Step</Text>
+            <Text style={styles.nextButtonText}>Go to Next Step</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -70,25 +71,66 @@ const SelectStyleScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    textAlign: 'center',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2C303B', // Matching background color with BeginScreen
     padding: 20,
   },
   imagePreview: {
-    // Define your image preview styles
+    width: 300,
+    height: 300,
+    borderRadius: 30, // Making the image circular
+    overflow: 'hidden',
+    marginBottom: 20,
   },
   image: {
-    // Define your image styles
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   styleButtons: {
-    // Define your style buttons container styles
+    flexDirection: 'row', // Arranging buttons in a row
+    flexWrap: 'wrap', // Allowing wrapping for multiple items
+    justifyContent: 'center',
+    marginBottom: 20,
   },
   button: {
-    // Define your button styles
+    backgroundColor: '#3D155F',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 8,
+    margin: 5,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '500',
+    letterSpacing: 1,
   },
   nextButton: {
-    // Define your next button styles
+    backgroundColor: '#3D155F',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 6,
   },
-  // ... other styles ...
+  nextButtonText: {
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: '500',
+    letterSpacing: 1,
+  },
 });
+
 
 export default SelectStyleScreen;

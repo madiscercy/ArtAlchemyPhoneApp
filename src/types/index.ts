@@ -20,9 +20,9 @@ export interface ImageState {
 }
 
 export enum ImageActionTypes {
-  SET_SELECTED_IMAGE = 'SET_SELECTED_IMAGE',
-  SET_SELECTED_STYLE = 'SET_SELECTED_STYLE',
-  SET_NEW_IMAGE = 'SET_NEW_IMAGE'
+  SET_SELECTED_IMAGE = 'image/setSelectedImage',
+  SET_SELECTED_STYLE = 'image/setSelectedStyle',
+  SET_NEW_IMAGE = 'image/setNewImage',
 }
 
 interface SetSelectedImageAction {
@@ -40,4 +40,7 @@ interface SetNewImageAction {
   payload: string;
 }
 
-export type ImageAction = SetSelectedImageAction | SetSelectedStyleAction | SetNewImageAction;
+export type ImageAction =
+  | SetSelectedImageAction
+  | SetSelectedStyleAction
+  | SetNewImageAction;

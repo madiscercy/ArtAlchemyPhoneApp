@@ -10,9 +10,11 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const AlchemizeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
+  console.log('AlchemizeScreen');
   const selectedImage = useSelector((state: RootState) => state.image.selectedImage);
   const selectedStyle = useSelector((state: RootState) => state.image.selectedStyle);
+  console.log('selectedImage: ' + selectedImage);
+  console.log('selectedStyle: ' + selectedStyle);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -29,13 +31,19 @@ const AlchemizeScreen = () => {
     if (selectedImage && selectedStyle && !isLoading) {
       setIsLoading(true);
       setIsError(false);
-
+  
       let imageData = selectedImage.toString();
-      const base64Prefix = 'data:image/jpeg;base64,';
-      const base64StartIndex = imageData.indexOf(base64Prefix) + base64Prefix.length;
-      imageData = imageData.substring(base64StartIndex);
+      console.log(imageData)
+      const base64Prefix = 'base64,';
+      const base64StartIndex =
+        imageData.indexOf(base64Prefix) + base64Prefix.length;
+      if (base64StartIndex > base64Prefix.length - 1) {
+        imageData = imageData.substring(base64StartIndex);
+      }
 
+  
       processImage(imageData, selectedStyle)
+  
         .then(response => {
           setIsLoading(false);
           if (response && response.newImage) {
@@ -63,12 +71,12 @@ const AlchemizeScreen = () => {
         </View>
       )}
 
-      {selectedStyle && <Text>Selected Style: {selectedStyle}</Text>}
-      {isLoading && <Text>Alchemizing Image... This may take a minute...</Text>}
-      {isError && <Text>Sorry! An error occurred. Please try again.</Text>}
+      {selectedStyle && <Text style={styles.selectedStyleText}>Selected Style: {selectedStyle}</Text>}
+      {isLoading && <Text style={styles.loadingText}>Alchemizing Image... This may take a minute...</Text>}
+      {isError && <Text style={styles.errorText}>Sorry! An error occurred. Please try again.</Text>}
       {selectedImage && selectedStyle && (
         <TouchableOpacity onPress={alchemize} style={styles.button}>
-          <Text>Alchemize</Text>
+          <Text style={styles.buttonText}>Alchemize</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -77,18 +85,56 @@ const AlchemizeScreen = () => {
 
 const styles = StyleSheet.create({
   processContainer: {
-    // other styles
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2C303B', // Matching the background color with other screens
   },
   imagePreview: {
-    // styles for image preview
+    width: 300,
+    height: 300,
+    borderRadius: 30, // Updated border radius
+    overflow: 'hidden',
+    marginBottom: 20,
   },
   image: {
-    // styles for image
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
+  selectedStyleText: {
+    color: '#FFFFFF', // White text color
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  loadingText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  errorText: {
+    color: '#FF0000', // Red color for errors
+    fontSize: 18,
+    marginBottom: 20,
   },
   button: {
-    // styles for button
+    backgroundColor: '#3D155F',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    shadowColor: 'rgba(0, 0, 0, 0.2)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  // ... other styles ...
+  buttonText: {
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: '500',
+    letterSpacing: 1,
+  },
 });
+
 
 export default AlchemizeScreen;
