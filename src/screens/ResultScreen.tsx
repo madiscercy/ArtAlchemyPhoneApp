@@ -16,7 +16,7 @@ const ResultScreen = () => {
     if (newImageUrl) {
       try {
         await CameraRoll.save(newImageUrl, { type: 'photo' });
-        Alert.alert('Image Saved', 'Your image has been saved to the Photos.');
+        Alert.alert('Image Saved', 'Your image has been saved to photos.');
       } catch (error) {
         console.error('Error saving image:', error);
         Alert.alert('Error', 'Failed to save image.');
@@ -33,8 +33,12 @@ const ResultScreen = () => {
   return (
     <View style={styles.resultsContainer}>
       <View style={styles.imageContainer}>
-        {originalImage && <Image source={{ uri: originalImage }} style={styles.image} />}
-        {newImageUrl && <Image source={{ uri: newImageUrl }} style={styles.image} />}
+        <View style={styles.imagePreview}>
+          {originalImage && <Image source={{ uri: originalImage }} style={styles.image} />}
+        </View>
+        <View style={styles.imagePreview}>
+          {newImageUrl && <Image source={{ uri: newImageUrl }} style={styles.image} />}
+        </View>
       </View>
 
       <TouchableOpacity onPress={saveImage} style={styles.button}>
@@ -61,12 +65,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 30, // Space below the images before the button
   },
-  image: {
-    width: 150, // Adjust size as needed
+  imagePreview: {
+    width: 150,
     height: 150,
+    overflow: 'hidden',
     borderRadius: 30,
-    resizeMode: 'contain',
-    marginHorizontal: 10, // Space between the two images
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   button: {
     backgroundColor: '#3D155F',

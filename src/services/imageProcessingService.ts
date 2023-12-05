@@ -1,12 +1,12 @@
 // imageProcessingService.js
 
 const apiUrl =
-  'https://v1pu4a0z9b.execute-api.us-east-1.amazonaws.com/api/art-alchemy/process';
+  'https://huntofyey5t6shf3duiuc5cose0xmlje.lambda-url.us-east-1.on.aws/';
 
 export const processImage = async (imageData: string, style: string) => {
   const payload = {imageData, style};
   const headers = {
-    'x-api-key': 'pL1nxvneOKaIJ9J1YJOfg93e3SDzxcjXOJYGBmif',
+    // 'x-api-key': 'pL1nxvneOKaIJ9J1YJOfg93e3SDzxcjXOJYGBmif',
     'Content-Type': 'application/json',
   };
 

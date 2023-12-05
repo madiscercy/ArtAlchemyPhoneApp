@@ -71,7 +71,7 @@ const AlchemizeScreen = () => {
 
       {selectedStyle && <Text style={styles.selectedStyleText}>Selected Style: {selectedStyle}</Text>}
       {isLoading && <Text style={styles.loadingText}>Alchemizing Image... This may take a minute...</Text>}
-      {isError && <Text style={styles.errorText}>Sorry! An error occurred. Please try again.</Text>}
+      {isError && <Text style={styles.errorText}>Sorry, an issue occurred while alchemizing. Please try again.</Text>}
       {selectedImage && selectedStyle && (
         <TouchableOpacity onPress={alchemize} style={styles.button}>
           <Text style={styles.buttonText}>Alchemize</Text>
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
   imagePreview: {
     width: 300,
     height: 300,
-    borderRadius: 30, // Updated border radius
     overflow: 'hidden',
-    marginBottom: 20,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
   },
   selectedStyleText: {
     color: '#FFFFFF', // White text color

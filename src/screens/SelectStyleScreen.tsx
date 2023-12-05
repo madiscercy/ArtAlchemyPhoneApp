@@ -80,14 +80,14 @@ const styles = StyleSheet.create({
   imagePreview: {
     width: 300,
     height: 300,
-    borderRadius: 30, // Making the image circular
     overflow: 'hidden',
-    marginBottom: 20,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
   },
   styleButtons: {
     flexDirection: 'row', // Arranging buttons in a row
